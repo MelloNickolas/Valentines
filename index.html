@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado por me escolher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #693838;
+            --secondary: #693838;
+            --text: #333;
+            --light: #fff9f9;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s forwards 0.3s;
+        }
+        
+        .photo-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(255, 107, 129, 0.2);
+            margin: 2rem 0;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: zoomIn 1s forwards 0.8s;
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-container:hover img {
+            transform: scale(1.03);
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s forwards 1.5s;
+        }
+        
+        .counter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 129, 0.3);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 1s forwards 2s;
+        }
+        
+        .counter-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .days-count {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Dancing Script', cursive;
+            margin: 0.5rem 0;
+        }
+        
+        .start-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 100;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .photo-container {
+                height: 300px;
+            }
+            .message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 >Obrigado por me escolher</h1>
+        
+        <div class="photo-container">
+            <img src="/We.png" alt="Casal romântico abraçado em frente a um pôr do sol na praia, silhueta destacada contra o céu alaranjado">
+        </div>
+        
+        <div class="message">
+            <p>Cada dia ao seu lado é um capítulo na mais bela história de amor que eu poderia imaginar. Seu amor ilumina minha vida como o sol aquece a terra, trazendo cor e alegria a cada momento que compartilhamos.</p>
+            <p>Nossa jornada juntos é o presente mais precioso que já recebi, e prometo nutrir esse amor todos os dias que nos são dados.</p>
+            <p>O mais importante, vai tomar um banho, nao adianta mentir que você ja tomou, eu sei que não :/</p>
+          </div>
+        
+        <div class="counter">
+            <div class="counter-title">Número de dias que a Mariane não toma banho</div>
+            <div class="days-count" id="days-count">0</div>
+            <div class="start-date">Desde 10 de junho de 2025</div>
+        </div>
+    </div>
+
+    <script>
+        // Contador de dias
+        function updateCounter() {
+            const startDate = new Date('June 10, 2025 00:00:00');
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('days-count').textContent = diffDays;
+        }
+        
+        // Animação de corações
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.style.opacity = 1;
+            }, 10);
+            
+            setTimeout(() => {
+                heart.style.opacity = 0;
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }, 3000);
+        }
+        
+        // Atualiza contador e inicia animações
+        updateCounter();
+        setInterval(updateCounter, 86400000); // Atualiza diário
+        
+        // Event listeners para animações
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                createHeart();
+            }
+        });
+        
+        // Efeito de digitação para a mensagem
+        const messageParagraphs = document.querySelectorAll('.message p');
+        messageParagraphs.forEach((p) => {
+            p.style.opacity = 0;
+            setTimeout(() => {
+                p.style.transition = 'opacity 1s ease';
+                p.style.opacity = 1;
+            }, 1800);
+        });
+    </script>
+</body>
+</html>
